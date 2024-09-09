@@ -4,9 +4,6 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import nodePolyfills from "rollup-plugin-polyfill-node";
 import typescript from 'rollup-plugin-typescript2';
-import terser from '@rollup/plugin-terser';
-
-const nodeBuiltIns = ['assert', 'buffer', 'child_process', 'cluster', 'console', 'constants', 'crypto', 'dgram', 'dns', 'domain', 'events', 'fs', 'http', 'https', 'module', 'net', 'os', 'path', 'process', 'punycode', 'querystring', 'readline', 'repl', 'stream', 'string_decoder', 'sys', 'timers', 'tls', 'tty', 'url', 'util', 'v8', 'vm', 'zlib']
 
 export default [
   // Browser config
@@ -19,25 +16,22 @@ export default [
         inlineDynamicImports: true,
       },
     ],
-    external: ['buffer'],
     plugins: [
+      json(),
+      commonjs(),
       nodeResolve({
         preferBuiltins: true,
         browser: true,
         modulesOnly: false,
       }),
       typescript({
-        tsconfig: "./tsconfig.json",
+        tsconfig: "./tsconfig.esm.json",
         declaration: true,
         declarationDir: "dist"
       }),
-      // nodePolyfills(),
-      commonjs(),
-      terser({
-        maxWorkers: 4
-      })
+      nodePolyfills(),
     ],
-    external: ["axios", "algosdk", "@json-rpc-tools/utils"],
+    external: ["algosdk", "buffer", "@json-rpc-tools/utils"],
   },
   // Node config
   {
@@ -48,20 +42,17 @@ export default [
         format: "cjs",
       },
     ],
-    external: ["algosdk", "@json-rpc-tools/utils", ...nodeBuiltIns],
+    external: ["algosdk", "@json-rpc-tools/utils"],
     plugins: [
+      json(),
+      commonjs(),
       nodeResolve({
-        preferBuiltins: false,
+        preferBuiltins: true,
       }),
       typescript({
-        tsconfig: "./tsconfigCJS.json",
+        tsconfig: "./tsconfig.cjs.json",
         declaration: true,
         declarationDir: "dist"
-      }),
-      commonjs(),
-      json(),
-      terser({
-        maxWorkers: 4
       })
     ],
   },

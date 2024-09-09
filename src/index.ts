@@ -5,6 +5,8 @@ import { extractNFTMetadata, getAssetInfo } from "./util";
 import axios from "axios";
 import { File } from "buffer";
 
+export { NFTAsset, UniversalARCNFTMetadata }
+
 type NFTAssetWithFiles = { assetData: NFTAsset; files: File[] };
 function getImageMimeTypeFromAssetMetadata(metadata: UniversalARCNFTMetadata) {
   let mimeType: string | undefined = undefined;
@@ -47,7 +49,7 @@ function getAnimationMimeTypeFromAssetMetadata(
  * @param {Algodv2} algorandClient Algorand client instance
  * @returns AlgorandUtil instance
  */
-export default class AlgorandNFTViewer {
+export class AlgorandNFTViewer {
   algoClient: algosdk.Algodv2;
   /**
    * @param {Algodv2} algorandClient Algorand client instance

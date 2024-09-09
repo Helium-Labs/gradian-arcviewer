@@ -10,14 +10,25 @@ import {
   ARC3_NAME_SUFFIX,
   ARC3_URL_SUFFIX,
   IPFSProxyPath,
-} from "./constants.js";
+} from "./constants";
 import {
   Arc3Arc19Metadata,
   Arc69Metadata,
   ARCStandard,
   GenericNFTData,
   UniversalARCNFTMetadata,
-} from "./types.js";
+} from "./types";
+
+export function Assert(value: boolean, message: string): asserts value is true {
+  if (!value) {
+    throw new Error(message)
+  }
+}
+export function AssertDefined<T>(value: T | undefined | null, message: string): asserts value is T {
+  if (value === undefined || value === null) {
+    throw new Error(message)
+  }
+}
 
 /**
  * Returns the asset info for the given asset index
@@ -246,6 +257,7 @@ export function arcResolveProtocol(url: string, reserveAddr: string): string {
     url = url.slice(0, url.length - ARC3_URL_SUFFIX.length);
 
   let chunks = url.split("://");
+  AssertDefined(chunks[1], "chunks[1] must be defined")
   // Check if prefix is template-ipfs and if {ipfscid:..} is where CID would normally be
   if (chunks[0] === "template-ipfs" && chunks[1].startsWith("{ipfscid:")) {
     // Look for something like: template:ipfs://{ipfscid:1:raw:reserve:sha2-256} and parse into components
@@ -257,7 +269,7 @@ export function arcResolveProtocol(url: string, reserveAddr: string): string {
       return url;
     }
     const [, cidVersion, cidCodec, asaField, cidHash] = cidComponents;
-
+    AssertDefined(cidHash, "cidHash must be defined")
     // const cidVersionInt = parseInt(cidVersion) as CIDVersion
     if (cidHash.split("}")[0] !== "sha2-256") {
       console.log("unsupported hash:", cidHash);
@@ -281,6 +293,7 @@ export function arcResolveProtocol(url: string, reserveAddr: string): string {
     if (!cidCodecCode) {
       throw new Error("unknown codec");
     }
+    AssertDefined(cidVersion, "cidVersion must be defined")
 
     // get 32 bytes Uint8Array reserve address - treating it as 32-byte sha2-256 hash
     const addr = algosdk.decodeAddress(reserveAddr);
