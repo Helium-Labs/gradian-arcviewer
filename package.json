@@ -1,7 +1,7 @@
 {
   "name": "@gradian/arcviewer",
-  "version": "1.4.0",
-  "description": "A utility for extracting data given an Algorand asset ID of an ARC3, ARC19, or ARC69 NFT asset for purposes like rendering an NFT in a frontend.",
+  "version": "1.5.0",
+  "description": "Library for retrieving ARC3, ARC19, or ARC69-compliant Algorand standard assets (NFTs), ideal for use in a viewer, such as one found on a marketplace",
   "scripts": {
     "test": "jest",
     "build": "rollup --config rollup.config.mjs"
