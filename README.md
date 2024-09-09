@@ -1,14 +1,12 @@
 # Arcviewer
 
-Utility for reading ARC3, ARC19, or ARC69 compliant data stored on Algorand.
-
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+A library for retrieving ARC3, ARC19, or ARC69-compliant Algorand standard assets (NFTs), ideal for use in a viewer, such as one found on a marketplace.
 
 ## Features
 
-- Get metadata for ARC3, ARC19 and ARC69 NFT Algorand digital assets
-- Get files for ARC3, ARC19 and ARC69 NFT Algorand digital assets
-- Comprehensive typescript types
+- Retrieve metadata for ARC3, ARC19, and ARC69 NFT Algorand digital assets using their asset ID.
+- Retrieve IPFS-pinned files for ARC3, ARC19, and ARC69 NFT Algorand digital assets using their asset ID.
+- Fully typed metadata using TypeScript.
 
 ## Installation
 
@@ -20,46 +18,11 @@ npm install @gradian/arcviewer
 
 ## Usage
 
-```javascript
-import AlgorandNFTViewer from '@gradian/arcviewer';
-// algoClient is an algosdk.AlgodV2 Algorand Client instance
-const algorandNFTViewer = new AlgorandNFTViewer(algoClient)
-
-const isMainnet = true
-const assetIndex = 123456678
-
-// 'files' is an array (File[]) that contains media representations of the asset, like images or music. 'nftAsset' (of type NFTAsset) holds all the related metadata.
-const {nftAsset, files} = algorandNFTViewer.getNFTAssetDataWithFiles(assetIndex, isMainnet)
-
-// Extract key-value pairs of all metadata fields for the given asset
-const metadataKVPairs = algorandNFTViewer.getMetadataFields(nftAsset)
-
-// Extract a particular metadata field for the given asset
-const description = algorandNFTViewer.getProperty(nftAsset, 'description')
-```
-
-## Building
-
-To build the project, run:
-
-```bash
-npm run build
-```
-
-## ARC3, ARC19, and ARC69 Algorand Request for Comment Standards
-
-- [ARC3 Digital Assets](https://github.com/algorandfoundation/ARCs/blob/main/ARCs/arc-0003.md)
-- [ARC19 Digital Assets](https://github.com/algorandfoundation/ARCs/blob/main/ARCs/arc-0019.md)
-- [ARC69 Digital Assets](https://github.com/algorandfoundation/ARCs/blob/main/ARCs/arc-0069.md)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
+See examples of usage in the [tests](./tests) folder.
 
 ## Disclaimer
 
-**This software is intended for educational purposes, and is not intended to faciliate any illegal activity. You assume all responsibility in using this open source software.**
+This software is intended for educational purposes only and is not meant to facilitate any illegal activity. You assume all responsibility when using this open-source software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
